@@ -1,0 +1,177 @@
+<div id="page-wrapper">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">News Feed</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Timeline <span class="pull-right"><i class="fa fa-refresh fa-fw" ng-click="updateTimeline()"></i> Updated: {{timelineLastUpdated | date: 'shortTime'}}</span>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="timelineLoading">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="overflow: auto" ng-repeat="story in timeline">
+                                    <a href="#/story/{{story.id}}">{{story.title}}</a>
+                                    <br />
+                                    <span class="pull-left" ng-repeat="company in story.companys">{{company.name}} : {{company.sentiment}}{{$last ? '' : ', '}}</span>
+                                    <span class="pull-right">{{story.datePublished | date: 'dd MMM h:mm a'}}</span>
+                                </li>
+                                <li class="list-group-item" ng-show="!timeline.length  && !timelineLoading">
+                                    No news for watched companies
+                                </li>
+                            </ul>
+                            <!--<table class="table">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>Date</th>-->
+                                    <!--<th>Company</th>-->
+                                    <!--<th>Story</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr ng-repeat="story in timeline">-->
+                                    <!--<td style="white-space: nowrap;">{{story.datePublished | date: 'dd MMM HH:mm'}}</td>-->
+                                    <!--<td style="white-space: nowrap;"><span ng-repeat="company in story.companys">{{company.name}} : {{company.sentiment}}{{$last ? '' : ', '}}</span></td>-->
+                                    <!--<td><a href="{{story.url}}" target="_blank">{{story.title}}</a></td>-->
+                                <!--</tr>-->
+                                <!--<tr ng-show="!timeline.length  && !timelineLoading">-->
+                                    <!--<td colspan="2"><p>No news for watched companies</p></td>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Watched Companies
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="watchedCompaniesLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Quote</th>
+                                    <th>Sentiment</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="company in watchedCompanies">
+                                    <td><a href="#/company/{{company.id}}"/>{{company.name}}</a></td>
+                                    <td style="text-align: right;">{{company.quote}}
+                                        <i ng-if="company.quoteDirection == 'Up'" class="fa fa-arrow-up quoteUp"></i>
+                                        <i ng-if="company.quoteDirection == 'None'" class="fa fa-minus"></i>
+                                        <i ng-if="company.quoteDirection == 'Down'" class="fa fa-arrow-down quoteDown"></i>
+                                    </td>
+                                    <td style="text-align: right;">{{company.sentiment}}
+                                        <i ng-if="company.sentimentDirection == 'Up'" class="fa fa-arrow-up sentimentUp"></i>
+                                        <i ng-if="company.sentimentDirection == 'None'" class="fa fa-minus"></i>
+                                        <i ng-if="company.sentimentDirection == 'Down'" class="fa fa-arrow-down sentimentDown"></i>
+                                    </td>
+                                </tr>
+                                <tr ng-show="!watchedCompanies.length && !watchedCompaniesLoading">
+                                    <td colspan="2"><p>You are not watching any companies<br />
+                                                    <a href="#/exchanges">Browse the Exchanges</a> and choose companies to follow</p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Negative News <span class="pull-right"><i class="fa fa-refresh fa-fw" ng-click="updateLowestCompanies()"></i> Updated: {{lowestCompaniesLastUpdated | date: 'shortTime'}}</span>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="lowestCompaniesLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Sentiment</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="company in lowestToday">
+                                    <td><a href="#/company/{{company.companyId}}"/>{{company.companyName}}</a></td>
+                                    <td style="text-align: right;">{{company.sentiment}}
+                                        <i ng-if="company.sentimentDirection == 'Up'" class="fa fa-arrow-up sentimentUp"></i>
+                                        <i ng-if="company.sentimentDirection == 'None'" class="fa fa-minus"></i>
+                                        <i ng-if="company.sentimentDirection == 'Down'" class="fa fa-arrow-down sentimentDown"></i>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Positive News <span class="pull-right"><i class="fa fa-refresh fa-fw" ng-click="updateHighestCompanies()"></i> Updated: {{highestCompaniesLastUpdated | date: 'shortTime'}}</span>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="highestCompaniesLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Sentiment</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="company in highestToday">
+                                    <td><a href="#/company/{{company.companyId}}"/>{{company.companyName}}</a></td>
+                                    <td style="text-align: right;">{{company.sentiment}}
+                                        <i ng-if="company.sentimentDirection == 'Up'" class="fa fa-arrow-up sentimentUp"></i>
+                                        <i ng-if="company.sentimentDirection == 'None'" class="fa fa-minus"></i>
+                                        <i ng-if="company.sentimentDirection == 'Down'" class="fa fa-arrow-down sentimentDown"></i>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+
+    </div>
+</div>

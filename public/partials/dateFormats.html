@@ -1,0 +1,67 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Date Formats</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Date Formats
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div loading-container="dateFormatsLoading">
+                        <div class="list-group">
+                            <div ng-repeat="dateFormat in dateFormats" class="list-group-item">
+                                <i class="fa fa-tasks fa-fw"></i> {{dateFormat.format}}
+                                    <span style="float:right">
+                                        <button ng-click="removeDateFormat(dateFormat.id)" type="button" class="btn btn-danger">Remove</button>
+                                    </span>
+                            </div>
+                            <input class="form-control list-group-item" placeholder="Date Format...." ng-model="newDateFormat.format" type="text" />
+                            <br />
+                            <button type="button" ng-click="addDateFormat()" class="btn btn-default btn-success">Add Date Format</button>
+                        </div>
+                    </div>
+
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Missing Date Formats
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div loading-container="missingDateFormatsLoading">
+                        <div class="list-group">
+                            <div ng-repeat="missingDateFormat in missingDateFormats" class="list-group-item">
+                                <i class="fa fa-tasks fa-fw"></i> {{missingDateFormat.metatag}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->

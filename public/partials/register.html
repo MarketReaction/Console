@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel-brand">
+                <img src="images/marketreaction.png" title="Market Reaction"/>
+            </div>
+
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Register</h3>
+                </div>
+                <div class="panel-body">
+                    <div loading-container="registering">
+                        <form role="form" name="register" ng-submit="submit()">
+                            <div class="error">{{errorMsg}}</div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Email Address" name="email"
+                                           type="email" autofocus ng-model="userForm.email"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Forename" name="forename" type="text"
+                                           ng-model="userForm.forename"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Surname" name="surname" type="text"
+                                           ng-model="userForm.surname"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" name="password"
+                                           type="password" value="" ng-model="userForm.password"/>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Confirm Password"
+                                           name="passwordConfirm" type="password" value=""
+                                           ng-model="userForm.passwordConfirm"/>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" class="btn btn-lg btn-success btn-block" value="Register"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

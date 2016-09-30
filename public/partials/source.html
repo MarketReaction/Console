@@ -1,0 +1,104 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{source.name}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Actions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <p>
+                        <button ng-if="source.disabled" type="button" class="btn btn-success" ng-click="enable()">Enable</button>
+                        <button  ng-if="!source.disabled" type="button" class="btn btn-danger" ng-click="disable()">Disable</button>
+                    </p>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> URLs
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div ng-repeat="url in source.urls" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> {{url.url}}
+                                <span style="float:right">
+                                    <button ng-if="!url.enabled" type="button" class="btn btn-success" ng-click="enableUrl(url.url)">Enable</button>
+                                    <button  ng-if="url.enabled" type="button" class="btn btn-danger" ng-click="disableUrl(url.url)">Disable</button>
+                                    <button type="button" class="btn btn-default btn-danger btn-xs" ng-click="removeUrl(url.url)">Remove URL</button>
+                                </span>
+                        </div>
+                        <input ng-model="urlToAdd" class="form-control list-group-item" placeholder="URL...." name="url" type="url" />
+                        <br />
+                        <button type="button" class="btn btn-default btn-success" ng-click="addUrl(urlToAdd)">Add URL</button>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Exclusions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div ng-repeat="exclusion in source.exclusionList" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> {{exclusion}}
+                                <span style="float:right">
+                                    <button type="button" class="btn btn-default btn-danger btn-xs" ng-click="removeExclusion(exclusion)">Remove Exclusion</button>
+                                </span>
+                        </div>
+                        <input ng-model="exclusionToAdd" class="form-control list-group-item" placeholder="Exclusion...." name="exclusion" />
+                        <br />
+                        <button type="button" class="btn btn-default btn-success" ng-click="addExclusion(exclusionToAdd)">Add Exclusion</button>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Stories <span class="pull-right"></i> Updated: {{storiesLastUpdated | date: 'mediumTime'}}</span>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div ng-repeat="story in stories" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> <a href="#/story/{{story.id}}">{{story.url}}</a>
+                                    <span class="pull-right text-muted small"><em>{{story.datePublished | date: 'yyyy-MM-dd HH:mm'}}</em>
+                                    </span>
+                        </div>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+
+
+</div>

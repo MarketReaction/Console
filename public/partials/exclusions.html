@@ -1,0 +1,67 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Exclusions</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Exclusions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div loading-container="exclusionsLoading">
+                            <div ng-repeat="exclusion in exclusions" class="list-group-item">
+                                <i class="fa fa-tasks fa-fw"></i> {{exclusion.name}} <span ng-show="exclusion.autoAdded"> - (Auto)</span>
+                                    <span style="float:right">
+                                        <button ng-click="removeExclusion(exclusion)" type="button" class="btn btn-danger">Remove</button>
+                                    </span>
+                            </div>
+                            <input class="form-control list-group-item" placeholder="Exclusion...." ng-model="newExclusion.name" type="text" />
+                            <br />
+                            <button type="button" ng-click="addExclusion()" class="btn btn-default btn-success">Add Exclusion</button>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Common Names
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div loading-container="commonNamesLoading">
+                            <div ng-repeat="commonName in commonNames" class="list-group-item">
+                                <i class="fa fa-tasks fa-fw"></i> {{commonName.name}} - ({{commonName.count}})
+                                <span style="float:right">
+                                        <button ng-click="addCommonNameAsExclusion(commonName.name)" type="button" class="btn btn-danger">Exclude</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->

@@ -1,0 +1,68 @@
+<div id="page-wrapper">
+    <div loading-container="userLoading">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{user.forename}} {{user.surname}}</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Actions
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="error">{{errorMsg}}</div>
+                        <p>
+                            <button type="button" ng-click="enable()" class="btn btn-success" ng-if="!user.activated">Enable</button>
+                            <button type="button" ng-click="disable()" class="btn btn-danger" ng-if="user.activated">Disable</button>
+
+                            <button type="button" ng-click="delete()" class="btn btn-danger pull-right">Delete</button>
+                        </p>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Watched Companies
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div loading-container="watchedCompaniesLoading">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="company in watchedCompanies">
+                                        <td><a href="#/company/{{company.id}}"/>{{company.name}}</a></td>
+                                    </tr>
+                                    <tr ng-show="!watchedCompanies.length && !watchedCompaniesLoading">
+                                        <td><p>User is not watching any companies</p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /#page-wrapper -->

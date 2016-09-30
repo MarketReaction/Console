@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel-brand">
+                <img src="images/marketreaction.png" title="Market Reaction"/>
+            </div>
+
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Confirm Account</h3>
+                </div>
+                <div class="panel-body">
+                    <div loading-container="activating">
+                        <form role="form" name="confirm" ng-submit="submit()">
+                            <div class="error">{{errorMsg}}</div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Activation Code" name="activationId"
+                                           type="text" ng-model="activationId" autofocus/>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" class="btn btn-lg btn-success btn-block"
+                                       value="Confirm Account"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

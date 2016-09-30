@@ -1,0 +1,338 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{company.name}} ({{exchange.code}}:{{company.tickerSymbol}})</h1>
+            <br ng-show="isAuthenticated()"/>
+            <button ng-show="isAuthenticated()" ng-if="company.watched" ng-click="unfollow()" type="button" class="btn btn-danger">Un-Follow</button>
+            <button ng-show="isAuthenticated()" ng-if="!company.watched" ng-click="follow()" type="button" class="btn btn-success">Follow</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- /.col-lg-12 -->
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Company Vitals
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <!--<div loading-container="companyLoading">-->
+                        <table class="table">
+                            <tr>
+                                <td>Volume:</td>
+                                <td>{{latestQuote.volume}}</td>
+                            </tr>
+                            <tr ng-show="latestQuote.bid > 0">
+                                <td>Bid:</td>
+                                <td>{{latestQuote.bid}}</td>
+                            </tr>
+                            <tr ng-show="latestQuote.ask > 0">
+                                <td>Ask:</td>
+                                <td>{{latestQuote.ask}}</td>
+                            </tr>
+                        </table>
+                    <!--</div>-->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!-- /.col-lg-12 -->
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Company Performance
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div loading-container="companyPerformanceLoading">
+                        <highchart id="companyPerformance" config="chartConfig"></highchart>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Stories
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="storiesLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Sentiment</th>
+                                    <th>Story</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="story in stories">
+                                    <td style="white-space: nowrap;">{{story.datePublished | date: 'dd MMM HH:mm'}}</td>
+                                    <td style="white-space: nowrap;">{{story.sentiment}}</td>
+                                    <td><a href="#/story/{{story.id}}">{{story.title}}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Related Companies
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="relatedCompaniesLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Company</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="relatedCompany in relatedCompanies">
+                                    <td><a href="#/company/{{relatedCompany.company}}"/>{{relatedCompany.companyName}}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Predictions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="predictionsLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Certainty</th>
+                                    <th>Predicted Change</th>
+                                    <th>Correct</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="prediction in predictions">
+                                    <td>{{prediction.predictionDate | date: 'dd MMM HH:mm'}}</td>
+                                    <td>{{prediction.certainty}}</td>
+                                    <td>{{prediction.predictedChange | number:2}} - ({{prediction.predictedChangePercent | number:2}}%)</td>
+                                    <td>{{prediction.correct}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Prediction Correctness
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div loading-container="predictionCorrectnessLoading">
+                        <highchart id="predictionCorrectness" config="predictionsChartConfig"></highchart>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Company Information <span class="pull-right"><i class="fa fa-refresh fa-fw" ng-click="reloadInformation()"></i></span>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div loading-container="companyLoading">
+                        <p>
+                            {{company.companyInformation}}
+                        </p>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="hasRole('ROLE_ADMIN')">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Organisations
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="companyLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="organisation in company.entities.organisations">
+                                        <td>{{organisation.name}}</td>
+                                        <td>{{organisation.count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    People
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="companyLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="person in company.entities.people">
+                                        <td>{{person.name}}</td>
+                                        <td>{{person.count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-4 -->
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Locations
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="companyLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="location in company.entities.locations">
+                                        <td>{{location.name}}</td>
+                                        <td>{{location.count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Misc
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div loading-container="companyLoading">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="misc in company.entities.misc">
+                                        <td>{{misc.name}}</td>
+                                        <td>{{misc.count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+</div>
+<!-- /#page-wrapper -->

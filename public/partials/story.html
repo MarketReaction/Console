@@ -1,0 +1,135 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{story.title}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="overflow: auto">
+                    Published: {{story.datePublished | date: 'medium'}}
+                    <a href="{{story.url}}" target="_blank" role="button" class="btn btn-default pull-right"><i class="fa fa-link fa-fw"></i> Go to Article</a>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div ng-bind-html="story.body"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Matched Companies
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Sentiment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="company in matchedCompanies">
+                                <td><a href="#/company/{{company.id}}"/>{{company.name}}</a></td>
+                                <td>{{company.sentiment}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Companies
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="organisation in story.entities.organisations">
+                                <td>{{organisation.name}}</td>
+                                <td>{{organisation.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+
+    <div class="row" ng-show="hasRole('ROLE_ADMIN')">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Metrics
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Duration</th>
+                                <th>Detail</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Published Date</td>
+                                <td>{{story.datePublished | date: 'MMM d, y h:mm:ss.sss a'}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr ng-repeat="metric in story.metrics">
+                                <td>{{metric.name}}</td>
+                                <td>{{metric.start | date: 'MMM d, y h:mm:ss.sss a'}}</td>
+                                <td>{{metric.end | date: 'MMM d, y h:mm:ss.sss a'}}</td>
+                                <td>{{metric.end | amDifference : metric.start : 'milliseconds'}} Milliseconds</td>
+                                <td>{{metric.detail}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+    </div>
+</div>
+<!-- /#page-wrapper -->
