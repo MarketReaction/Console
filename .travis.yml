@@ -9,8 +9,8 @@ before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
 
-install:
-  - npm install
+# install:
+  # - npm install
 
 after_success:
   - aws s3 cp public/ s3://console.market-reaction.com/ --recursive --acl public-read
