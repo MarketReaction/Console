@@ -1164,9 +1164,6 @@ app.controller("DateFormatsController", function($scope, $http, ConfigService) {
 app.controller("SystemController", function($scope, $http, $interval, $filter, ConfigService) {
     $scope.page.hideNav = false;
 
-    $scope.slowQueries = {};
-
-    $scope.slowQueriesLoading = true;
     $scope.storyCountLoading = true;
     $scope.storyProcessingTimesLoading = true;
     $scope.storyStageProcessingTimesLoading = true;
@@ -1469,12 +1466,6 @@ app.controller("SystemController", function($scope, $http, $interval, $filter, C
             showInLegend: false
         }]
     };
-
-    $http.get(ConfigService.getApiBase() + "/system/slowQueries").
-        success(function (data, status, headers, config) {
-            $scope.slowQueries = data;
-            $scope.slowQueriesLoading = false;
-        });
 
     $scope.getStoryProcessingStats = function () {
         $http.get(ConfigService.getApiBase() + "/story/processingTimes/pastDays/1")

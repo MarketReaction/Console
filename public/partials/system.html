@@ -140,33 +140,5 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Slow Queries
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div loading-container="slowQueriesLoading">
-                        <div class="list-group">
-                            <div ng-repeat="slowQuery in slowQueries" class="list-group-item">
-                                {{slowQuery.ts | date: 'dd MMM HH:mm'}} - {{slowQuery.op}} on {{slowQuery.ns}} taking {{slowQuery.millis}}ms
-                                <br />
-                                {{slowQuery.query}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- /.table-responsive -->
-
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
 </div>
 <!-- /#page-wrapper -->
