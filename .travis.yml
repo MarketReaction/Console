@@ -11,5 +11,5 @@ install:
   - npm install -g bower
   - npm install
 
-#deploy:
-#  - aws s3 cp public/ s3://console.market-reaction.com/ --recursive --acl public-read
+after_success:
+  - aws s3 cp public/ s3://console.market-reaction.com/ --recursive --acl public-read
