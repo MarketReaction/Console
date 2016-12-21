@@ -1606,34 +1606,10 @@ app.controller("SystemController", function($scope, $http, $interval, $filter, C
             });
     }
 
-    $scope.getCompanyQueueStats = function () {
-        $http.get(ConfigService.getApiBase() + "/system/queue/Queue/FindCompanies")
-            .success(function (data, status, headers, config) {
-                $scope.companyFlowChartConfig.series[0].data[0] = data["QueueSize"]
-                $scope.companyFlowChartConfig.series[1].data[0] = data["ConsumerCount"]
-                $scope.companyQueueLastUpdated = new Date();
-            });
-
-        $http.get(ConfigService.getApiBase() + "/system/queue/Queue/FoundCompany")
-            .success(function (data, status, headers, config) {
-                $scope.companyFlowChartConfig.series[0].data[1] = data["QueueSize"]
-                $scope.companyFlowChartConfig.series[1].data[1] = data["ConsumerCount"]
-                $scope.companyQueueLastUpdated = new Date();
-            });
-
-        $http.get(ConfigService.getApiBase() + "/system/queue/Queue/CompanyWithInformation")
-            .success(function (data, status, headers, config) {
-                $scope.companyFlowChartConfig.series[0].data[2] = data["QueueSize"]
-                $scope.companyFlowChartConfig.series[1].data[2] = data["ConsumerCount"]
-                $scope.companyQueueLastUpdated = new Date();
-            });
-    }
-
     updateQueueData();
 
     function updateQueueData() {
-        $scope.getStoryQueueStats();
-        // $scope.getCompanyQueueStats();
+        // $scope.getStoryQueueStats(); // Temp disabled until API calls work
     }
 
     updateStoryData();
